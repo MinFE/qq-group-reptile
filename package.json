@@ -1,0 +1,27 @@
+{
+  "name": "qq-reptile",
+  "version": "1.0.0",
+  "description": "qq微信群数据导出脚本",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MinFE/qq-group-reptile.git"
+  },
+  "keywords": [
+    "qq",
+    "reptile"
+  ],
+  "author": "minfive",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MinFE/qq-group-reptile/issues"
+  },
+  "homepage": "https://github.com/MinFE/qq-group-reptile#readme",
+  "dependencies": {
+    "node-xlsx": "^0.12.1",
+    "puppeteer": "^1.5.0"
+  }
+}
