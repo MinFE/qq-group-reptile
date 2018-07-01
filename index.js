@@ -8,6 +8,7 @@ let allGroupList = [];
 let allGroupData = {};
 let idx = 0;
 let browser;
+let page;
 
 start();
 
@@ -55,7 +56,7 @@ async function launch() {
         headless: false
     });
     // const context = await browser.createIncognitoBrowserContext();
-    const page = await browser.newPage();
+    page = await browser.newPage();
     await page.setRequestInterception(true);
     return page;
 }
@@ -87,7 +88,7 @@ function checkRequestGroupList(request) {
 }
 
 // 写入文件
-function createDownloadData() {
+async function createDownloadData() {
     Object.keys(allGroupData)
         .forEach(groupId => {
             let res = allGroupData[groupId];
@@ -119,12 +120,13 @@ function createDownloadData() {
                     option
                 );
                 console.log(`[download data]: ${groupInfo.gn}`);
-                fs.writeFileSync(`./data/${groupInfo.gn}-id${groupId}.xlsx`, buffer);
+                fs.writeFileSync(`./data/${groupInfo.gn.replace('/', '_')}-id${groupId}.xlsx`, buffer);
             }
         });
     
     console.log('数据导出完毕');
-    browser.close();
+    await page.close();
+    await browser.close();
 }
 
 // 格式性别
