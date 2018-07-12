@@ -33,7 +33,9 @@ async function start() {
             
             setTimeout(() => {
                 page.$$eval('.my-all-group .my-group-list li', lis => {
-                    lis.forEach(li => li.click());
+                    lis.forEach((li, idx) => {
+                        setTimeout(() => li.click(), 2000 * idx);
+                    });
                 });
             });
         } else if (checkRequestIsSearchGroup(interceptedRequest)) {
@@ -120,7 +122,11 @@ async function createDownloadData() {
                     option
                 );
                 console.log(`[download data]: ${groupInfo.gn}`);
-                fs.writeFileSync(`./data/${groupInfo.gn.replace('/', '_')}-id${groupId}.xlsx`, buffer);
+                try {
+                    fs.writeFileSync(`./data/${groupInfo.gn.replace(/[/\\\*]/g, '_')}-id${groupId}.xlsx`, buffer);
+                } catch(err) {
+                    console.error(err);
+                }
             }
         });
     
